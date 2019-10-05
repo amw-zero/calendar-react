@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Form, Input, Button, Card, DatePicker } from 'antd';
+import { Row, Col, Empty, Form, Input, Button, Card, DatePicker } from 'antd';
 import commands, { makeCalendarShell } from 'calendar-behavior/mod.mjs'
 
 let calendarShell = makeCalendarShell();
@@ -16,6 +16,7 @@ function App() {
 
   return (
     <div className="App">
+      <Row>
       <Card size="small">
         <Form layout="inline">
           <Form.Item label="Event name">
@@ -34,14 +35,22 @@ function App() {
             <Button type="primary" onClick={() => {
               execute(() => commands.addEvent(shell, name, date));
             }}>
-              Create event
+              Add event
             </Button>
           </Form.Item>
         </Form>
       </Card>
-      { Object.entries(shell.events).map(([date, events]) => {
-        return <span><p>{ date }</p><p>{ name }</p></span>
-      })}
+      </Row>
+
+      { shell.events.keys ? null : <Empty description="Add events"></Empty> }
+      <Row>
+        { Object.entries(shell.events).map(([date, events]) => {
+          return <Card title={date} size="small">
+              { events.map(e => <p>{e.name}</p>)}
+            </Card>
+        })}
+      </Row>                
+
     </div>
   );
 }
