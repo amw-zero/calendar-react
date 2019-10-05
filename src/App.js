@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Row, Col, Empty, Form, Input, Button, Card, DatePicker } from 'antd';
+import { Row, Empty, Form, Input, Button, Card, DatePicker } from 'antd';
 import commands, { makeCalendarShell } from 'calendar-behavior/mod.mjs'
 
 let calendarShell = makeCalendarShell();
@@ -42,7 +42,8 @@ function App() {
       </Card>
       </Row>
 
-      { shell.events.keys ? null : <Empty description="Add events"></Empty> }
+      { Object.keys(shell.events).length > 0 ? null : <Empty description="Add events"></Empty> }
+
       <Row>
         { Object.entries(shell.events).map(([date, events]) => {
           return <Card title={date} size="small">
