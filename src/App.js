@@ -17,29 +17,29 @@ function App() {
   return (
     <div className="App">
       <Row>
-      <Card size="small">
-        <Form layout="inline">
-          <Form.Item label="Event name">
-            <Input name="name-input" type="test" value={name} onChange={(event) => {
-              setName(event.target.value);
-            }}>
-            </Input>              
-          </Form.Item>
-          <Form.Item label="Event date">
-            <DatePicker onChange={(date, dateString) => {
-              setDate(dateString)              
-            }}>
-            </DatePicker>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" onClick={() => {
-              execute(() => commands.addEvent(shell, name, date));
-            }}>
-              Add event
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+        <Card size="small">
+          <Form layout="inline">
+            <Form.Item label="Event name">
+              <Input name="name-input" type="test" value={name} onChange={(event) => {
+                setName(event.target.value);
+              }}>
+              </Input>              
+            </Form.Item>
+            <Form.Item label="Event date">
+              <DatePicker onChange={(date, dateString) => {
+                setDate(dateString)              
+              }}>
+              </DatePicker>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" onClick={() => {
+                execute(() => commands.addEvent(shell, name, date));
+              }}>
+                Add event
+              </Button>
+            </Form.Item>
+          </Form>
+        </Card>
       </Row>
 
       { Object.keys(shell.events).length > 0 ? null : <Empty description="Add events"></Empty> }
