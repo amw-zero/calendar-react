@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Form, Input, Button, Card } from 'antd';
+import { Form, Input, Button, Card, DatePicker } from 'antd';
 import commands, { makeCalendarShell } from 'calendar-behavior/mod.mjs'
 
 let calendarShell = makeCalendarShell();
@@ -25,10 +25,10 @@ function App() {
             </Input>              
           </Form.Item>
           <Form.Item label="Event date">
-            <Input name="date-input" type="text" value={date} onChange={(event) =>
-              setDate(event.target.value)
-            }>
-            </Input>
+            <DatePicker onChange={(date, dateString) => {
+              setDate(dateString)              
+            }}>
+            </DatePicker>
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={() => {
