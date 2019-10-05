@@ -1,12 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import commands, { makeCalendarShell } from 'calendar-behavior/mod.mjs'
+
+let calendarShell = makeCalendarShell();
 
 function App() {
+  const [shell, setShell] = useState(calendarShell);
+  const [date, setDate] = useState("");
+  const [name, setName] = useState("");
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        
+        <label htmlFor="name-input">Enter a name</label>
+        <input name="name-input" type="test" value={name} onChange={(event) => {
+          setName(event.target.value);
+        }}></input>
+
+        <label htmlFor="date-input">Enter a date</label>        
+        <input name="date-input" type="text" value={date} onChange={(event) =>
+          setDate(event.target.value)
+        }></input>
+
+        <button onClick={() => {
+          commands.addEvent(shell, name, date);
+          setShell(Object.assign({}, shell));
+        }}>Create event</button>
+
+        { Object.entries(shell.events).map(([date, events]) => {
+          return <span><p>{ date }</p><p>{ name }</p></span>
+        })}
+
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
