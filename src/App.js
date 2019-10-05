@@ -8,6 +8,12 @@ function App() {
   const [shell, setShell] = useState(calendarShell);
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
+
+  function execute(cmd) {
+    cmd();
+    setShell(Object.assign({}, shell));
+  }
+
   return (
     <div className="App">
       <header className="App-header">        
@@ -22,8 +28,7 @@ function App() {
         }></input>
 
         <button onClick={() => {
-          commands.addEvent(shell, name, date);
-          setShell(Object.assign({}, shell));
+          execute(() => commands.addEvent(shell, name, date));
         }}>Create event</button>
 
         { Object.entries(shell.events).map(([date, events]) => {
