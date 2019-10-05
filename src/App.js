@@ -10,8 +10,7 @@ function App() {
   const [name, setName] = useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        
+      <header className="App-header">        
         <label htmlFor="name-input">Enter a name</label>
         <input name="name-input" type="test" value={name} onChange={(event) => {
           setName(event.target.value);
@@ -30,18 +29,6 @@ function App() {
         { Object.entries(shell.events).map(([date, events]) => {
           return <span><p>{ date }</p><p>{ name }</p></span>
         })}
-
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
