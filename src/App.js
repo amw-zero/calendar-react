@@ -5,8 +5,7 @@ import commands, { makeCalendarShell, makeServer } from 'calendar-behavior/mod.m
 
 let server = makeServer({
   async addEvent(name, date) {
-    console.log(`POSTing event - name: ${name}, date: ${date}`);
-    await fetch("/events", { 
+    return fetch("/events", { 
       method: "POST", 
       body: JSON.stringify({ name, date }),
       headers: {
@@ -23,8 +22,8 @@ function App() {
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
 
-  function execute(cmd) {
-    cmd();
+  async function execute(cmd) {
+    await cmd();
     setShell(Object.assign({}, shell));
   }
 
