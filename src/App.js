@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Row, Empty, Form, Input, Button, Card, DatePicker } from 'antd';
 import commands, { makeCalendarShell, makeServer } from 'calendar-behavior/mod.mjs'
@@ -12,6 +12,10 @@ let server = makeServer({
         'Content-Type': 'application/json'
       }
     });
+  },
+  async viewEvents() {
+    let events = await fetch("/events");
+    return events.json();
   }
 });
 
@@ -21,6 +25,10 @@ function App() {
   const [shell, setShell] = useState(calendarShell);
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
+
+  useEffect(async () => {
+    execute(() => commands.viewEvents(shell));
+  }, []);
 
   async function execute(cmd) {
     await cmd();
