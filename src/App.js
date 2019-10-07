@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Row, Empty, Form, Input, Button, Card, DatePicker } from 'antd';
-import commands, { makeCalendarShell } from 'calendar-behavior/mod.mjs'
+import commands, { makeCalendarShell, makeServer } from 'calendar-behavior/mod.mjs'
 
-let calendarShell = makeCalendarShell();
+let server = makeServer({
+  async addEvent(name, date) {
+    console.log(`POSTing event - name: ${name}, date: ${date}`);
+    await fetch("/events", { 
+      method: "POST", 
+      body: JSON.stringify({ name, date }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+});
+
+let calendarShell = makeCalendarShell(server);
+
 function App() {
   const [shell, setShell] = useState(calendarShell);
   const [date, setDate] = useState("");
